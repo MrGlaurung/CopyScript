@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="filemover" default="all">
+  
+  
+  <property file="filemover.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="lib/ant-javafx.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javafx-mx.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="lib/tools.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.maven:_aopalliance:aopalliance:1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_ch.qos.logback:logback-classic:1.1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/ch/qos/logback/logback-classic/1.1.3/logback-classic-1.1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_ch.qos.logback:logback-core:1.1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/ch/qos/logback/logback-core/1.1.3/logback-core-1.1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_junit:junit:4.12.classpath">
+    <pathelement location="${path.variable.maven_repository}/junit/junit/4.12/junit-4.12.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hamcrest:hamcrest-library:1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.mockito:mockito-core:1.10.19.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.objenesis:objenesis:2.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/objenesis/objenesis/2.1/objenesis-2.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.slf4j:jcl-over-slf4j:1.7.13.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/jcl-over-slf4j/1.7.13/jcl-over-slf4j-1.7.13.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.slf4j:jul-to-slf4j:1.7.13.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/jul-to-slf4j/1.7.13/jul-to-slf4j-1.7.13.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.slf4j:log4j-over-slf4j:1.7.13.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/log4j-over-slf4j/1.7.13/log4j-over-slf4j-1.7.13.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.slf4j:slf4j-api:1.7.13.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-api/1.7.13/slf4j-api-1.7.13.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework.boot:spring-boot-autoconfigure:1.3.1.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/boot/spring-boot-autoconfigure/1.3.1.RELEASE/spring-boot-autoconfigure-1.3.1.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework.boot:spring-boot-starter-logging:1.3.1.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/boot/spring-boot-starter-logging/1.3.1.RELEASE/spring-boot-starter-logging-1.3.1.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework.boot:spring-boot-starter-test:1.3.1.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/boot/spring-boot-starter-test/1.3.1.RELEASE/spring-boot-starter-test-1.3.1.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework.boot:spring-boot-starter:1.3.1.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/boot/spring-boot-starter/1.3.1.RELEASE/spring-boot-starter-1.3.1.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework.boot:spring-boot:1.3.1.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/boot/spring-boot/1.3.1.RELEASE/spring-boot-1.3.1.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-aop:4.2.4.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-aop/4.2.4.RELEASE/spring-aop-4.2.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-beans:4.2.4.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-beans/4.2.4.RELEASE/spring-beans-4.2.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-context:4.2.4.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-context/4.2.4.RELEASE/spring-context-4.2.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-core:4.2.4.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-core/4.2.4.RELEASE/spring-core-4.2.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-expression:4.2.4.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-expression/4.2.4.RELEASE/spring-expression-4.2.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-test:4.2.4.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-test/4.2.4.RELEASE/spring-test-4.2.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.yaml:snakeyaml:1.16.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/yaml/snakeyaml/1.16/snakeyaml-1.16.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module FileMover -->
+  
+  <dirname property="module.filemover.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.filemover" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.filemover" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.filemover" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.filemover" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="filemover.output.dir" value="${module.filemover.basedir}/target/classes"/>
+  <property name="filemover.testoutput.dir" value="${module.filemover.basedir}/target/test-classes"/>
+  
+  <path id="filemover.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="filemover.module.production.classpath">
+    <path refid="${module.jdk.classpath.filemover}"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter:1.3.1.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot:1.3.1.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:4.2.4.release.classpath"/>
+    <path refid="library.maven:_aopalliance:aopalliance:1.0.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-autoconfigure:1.3.1.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-logging:1.3.1.release.classpath"/>
+    <path refid="library.maven:_ch.qos.logback:logback-classic:1.1.3.classpath"/>
+    <path refid="library.maven:_ch.qos.logback:logback-core:1.1.3.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:jcl-over-slf4j:1.7.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:jul-to-slf4j:1.7.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:log4j-over-slf4j:1.7.13.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:4.2.4.release.classpath"/>
+  </path>
+  
+  <path id="filemover.runtime.production.module.classpath">
+    <pathelement location="${filemover.output.dir}"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter:1.3.1.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot:1.3.1.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:4.2.4.release.classpath"/>
+    <path refid="library.maven:_aopalliance:aopalliance:1.0.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-autoconfigure:1.3.1.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-logging:1.3.1.release.classpath"/>
+    <path refid="library.maven:_ch.qos.logback:logback-classic:1.1.3.classpath"/>
+    <path refid="library.maven:_ch.qos.logback:logback-core:1.1.3.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:jcl-over-slf4j:1.7.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:jul-to-slf4j:1.7.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:log4j-over-slf4j:1.7.13.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.16.classpath"/>
+  </path>
+  
+  <path id="filemover.module.classpath">
+    <path refid="${module.jdk.classpath.filemover}"/>
+    <pathelement location="${filemover.output.dir}"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter:1.3.1.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot:1.3.1.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:4.2.4.release.classpath"/>
+    <path refid="library.maven:_aopalliance:aopalliance:1.0.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-autoconfigure:1.3.1.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-logging:1.3.1.release.classpath"/>
+    <path refid="library.maven:_ch.qos.logback:logback-classic:1.1.3.classpath"/>
+    <path refid="library.maven:_ch.qos.logback:logback-core:1.1.3.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:jcl-over-slf4j:1.7.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:jul-to-slf4j:1.7.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:log4j-over-slf4j:1.7.13.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.16.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-test:1.3.1.release.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.mockito:mockito-core:1.10.19.classpath"/>
+    <path refid="library.maven:_org.objenesis:objenesis:2.1.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-library:1.3.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-test:4.2.4.release.classpath"/>
+  </path>
+  
+  <path id="filemover.runtime.module.classpath">
+    <pathelement location="${filemover.testoutput.dir}"/>
+    <pathelement location="${filemover.output.dir}"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter:1.3.1.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot:1.3.1.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:4.2.4.release.classpath"/>
+    <path refid="library.maven:_aopalliance:aopalliance:1.0.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-autoconfigure:1.3.1.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-logging:1.3.1.release.classpath"/>
+    <path refid="library.maven:_ch.qos.logback:logback-classic:1.1.3.classpath"/>
+    <path refid="library.maven:_ch.qos.logback:logback-core:1.1.3.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:jcl-over-slf4j:1.7.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:jul-to-slf4j:1.7.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:log4j-over-slf4j:1.7.13.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:4.2.4.release.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.16.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-test:1.3.1.release.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.mockito:mockito-core:1.10.19.classpath"/>
+    <path refid="library.maven:_org.objenesis:objenesis:2.1.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-library:1.3.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-test:4.2.4.release.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.filemover">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.filemover">
+    <patternset refid="excluded.from.module.filemover"/>
+  </patternset>
+  
+  <path id="filemover.module.sourcepath">
+    <dirset dir="${module.filemover.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="filemover.module.test.sourcepath">
+    <dirset dir="${module.filemover.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.filemover" depends="compile.module.filemover.production,compile.module.filemover.tests" description="Compile module FileMover"/>
+  
+  <target name="compile.module.filemover.production" depends="register.custom.compilers" description="Compile module FileMover; production classes">
+    <mkdir dir="${filemover.output.dir}"/>
+    <javac2 destdir="${filemover.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.filemover}/javac">
+      <compilerarg line="${compiler.args.filemover}"/>
+      <bootclasspath refid="filemover.module.bootclasspath"/>
+      <classpath refid="filemover.module.production.classpath"/>
+      <src refid="filemover.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.filemover"/>
+    </javac2>
+    
+    <copy todir="${filemover.output.dir}">
+      <fileset dir="${module.filemover.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.filemover.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.filemover.tests" depends="register.custom.compilers,compile.module.filemover.production" description="compile module FileMover; test classes" unless="skip.tests">
+    <mkdir dir="${filemover.testoutput.dir}"/>
+    <javac2 destdir="${filemover.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.filemover}/javac">
+      <compilerarg line="${compiler.args.filemover}"/>
+      <bootclasspath refid="filemover.module.bootclasspath"/>
+      <classpath refid="filemover.module.classpath"/>
+      <src refid="filemover.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.filemover"/>
+    </javac2>
+    
+    <copy todir="${filemover.testoutput.dir}">
+      <fileset dir="${module.filemover.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.filemover" description="cleanup module">
+    <delete dir="${filemover.output.dir}"/>
+    <delete dir="${filemover.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.filemover" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.filemover" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.filemover:jar" value="${basedir}/out/artifacts/FileMover_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.FileMover.jar" value="${artifacts.temp.dir}/FileMover.jar"/>
+  </target>
+  
+  <target name="artifact.filemover:jar" depends="init.artifacts, compile.module.filemover" description="Build &#39;FileMover:jar&#39; artifact">
+    <property name="artifact.temp.output.filemover:jar" value="${artifacts.temp.dir}/FileMover_jar"/>
+    <mkdir dir="${artifact.temp.output.filemover:jar}"/>
+    <jar destfile="${temp.jar.path.FileMover.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${filemover.output.dir}"/>
+      <zipfileset src="${path.variable.maven_repository}/ch/qos/logback/logback-core/1.1.3/logback-core-1.1.3.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/slf4j/slf4j-api/1.7.13/slf4j-api-1.7.13.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/springframework/spring-beans/4.2.4.RELEASE/spring-beans-4.2.4.RELEASE.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/springframework/spring-context/4.2.4.RELEASE/spring-context-4.2.4.RELEASE.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/springframework/spring-core/4.2.4.RELEASE/spring-core-4.2.4.RELEASE.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/springframework/boot/spring-boot-starter/1.3.1.RELEASE/spring-boot-starter-1.3.1.RELEASE.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/springframework/boot/spring-boot-starter-logging/1.3.1.RELEASE/spring-boot-starter-logging-1.3.1.RELEASE.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/ch/qos/logback/logback-classic/1.1.3/logback-classic-1.1.3.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/yaml/snakeyaml/1.16/snakeyaml-1.16.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/springframework/boot/spring-boot-autoconfigure/1.3.1.RELEASE/spring-boot-autoconfigure-1.3.1.RELEASE.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/springframework/boot/spring-boot/1.3.1.RELEASE/spring-boot-1.3.1.RELEASE.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/slf4j/jcl-over-slf4j/1.7.13/jcl-over-slf4j-1.7.13.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/springframework/spring-aop/4.2.4.RELEASE/spring-aop-4.2.4.RELEASE.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/slf4j/log4j-over-slf4j/1.7.13/log4j-over-slf4j-1.7.13.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/slf4j/jul-to-slf4j/1.7.13/jul-to-slf4j-1.7.13.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/springframework/spring-expression/4.2.4.RELEASE/spring-expression-4.2.4.RELEASE.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.FileMover.jar}" tofile="${artifact.temp.output.filemover:jar}/FileMover.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.filemover:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.filemover:jar}"/>
+    <copy todir="${artifact.output.filemover:jar}">
+      <fileset dir="${artifact.temp.output.filemover:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

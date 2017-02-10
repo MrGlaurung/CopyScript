@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------------
+Test set: com.filemover.DirectoryClassTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.099 sec <<< FAILURE! - in com.filemover.DirectoryClassTest
+testWithRootFolder(com.filemover.DirectoryClassTest)  Time elapsed: 0.089 sec  <<< ERROR!
+java.lang.ArrayIndexOutOfBoundsException: -1
+	at com.filemover.DirectoryClass.validate(DirectoryClass.java:58)
+	at com.filemover.DirectoryClassTest.testWithRootFolder(DirectoryClassTest.java:79)
+
